@@ -94,6 +94,7 @@ namespace MarlinCartDAL
                 var result = this._dbEntities.GetStateData().ToList();
                 if(result != null && result.Count > 0)
                 {
+                    states = new List<StateVO>();
                     result.ForEach(itm =>
                     {
                         states.Add(new StateVO(itm.StateId, itm.Name, itm.Abbreviation));
