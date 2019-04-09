@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MarlinCartModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_CreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_MarlinProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SIT_Core_Dev2008.dbo.tbl_State' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tbl_State">
+          <Key>
+            <PropertyRef Name="StateId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Abbreviation" />
+          </Key>
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Abbreviation" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <Function Name="spSelCreditCard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelMarlinProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelStateData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="MarlinCartModelStoreContainer">
+          <EntitySet Name="tbl_CreditCard" EntityType="Self.tbl_CreditCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_MarlinProduct" EntityType="Self.tbl_MarlinProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_State" EntityType="Self.tbl_State" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tbl_State].[StateId] AS [StateId], 
+    [tbl_State].[Name] AS [Name], 
+    [tbl_State].[Abbreviation] AS [Abbreviation]
+    FROM [dbo].[tbl_State] AS [tbl_State]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MarlinCartModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_CreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_MarlinProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_State">
+          <Key>
+            <PropertyRef Name="StateId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Abbreviation" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abbreviation" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CartEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_CreditCard" EntityType="Self.tbl_CreditCard" />
+          <EntitySet Name="tbl_MarlinProduct" EntityType="Self.tbl_MarlinProduct" />
+          <EntitySet Name="tbl_State" EntityType="Self.tbl_State" />
+          <FunctionImport Name="GetCreditCard" ReturnType="Collection(MarlinCartModel.GetCreditCardResult)" />
+          <FunctionImport Name="GetMarlinProduct" ReturnType="Collection(MarlinCartModel.GetMarlinProductResult)" />
+          <FunctionImport Name="GetStateData" ReturnType="Collection(MarlinCartModel.GetStateDataResult)" />
+        </EntityContainer>
+        <ComplexType Name="spSelCreditCard_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="spSelMarlinProduct_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="spSelStateData_Result">
+          <Property Type="Int32" Name="StateId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Abbreviation" Nullable="false" MaxLength="2" />
+        </ComplexType>
+        <ComplexType Name="GetCreditCardResult">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="GetMarlinProductResult">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="250" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="GetStateDataResult">
+          <Property Type="Int32" Name="StateId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Abbreviation" Nullable="false" MaxLength="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MarlinCartModelStoreContainer" CdmEntityContainer="CartEntities">
+          <EntitySetMapping Name="tbl_CreditCard">
+            <EntityTypeMapping TypeName="MarlinCartModel.tbl_CreditCard">
+              <MappingFragment StoreEntitySet="tbl_CreditCard">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MarlinProduct">
+            <EntityTypeMapping TypeName="MarlinCartModel.tbl_MarlinProduct">
+              <MappingFragment StoreEntitySet="tbl_MarlinProduct">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_State">
+            <EntityTypeMapping TypeName="MarlinCartModel.tbl_State">
+              <MappingFragment StoreEntitySet="tbl_State">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCreditCard" FunctionName="MarlinCartModel.Store.spSelCreditCard">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MarlinCartModel.GetCreditCardResult">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetMarlinProduct" FunctionName="MarlinCartModel.Store.spSelMarlinProduct">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MarlinCartModel.GetMarlinProductResult">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetStateData" FunctionName="MarlinCartModel.Store.spSelStateData">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="MarlinCartModel.GetStateDataResult">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
