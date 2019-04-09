@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinDataModel", "MarlinDataModel\MarlinDataModel.csproj", "{CFA071C4-C00F-4823-A063-CE3D90A083E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarlinCart.Common", "MarlinCart.Common\MarlinCart.Common.csproj", "{8FBDCB03-98D1-41DB-808F-912A53BC60F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CFA071C4-C00F-4823-A063-CE3D90A083E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA071C4-C00F-4823-A063-CE3D90A083E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA071C4-C00F-4823-A063-CE3D90A083E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FBDCB03-98D1-41DB-808F-912A53BC60F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FBDCB03-98D1-41DB-808F-912A53BC60F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FBDCB03-98D1-41DB-808F-912A53BC60F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FBDCB03-98D1-41DB-808F-912A53BC60F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
